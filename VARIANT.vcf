@@ -1,0 +1,10 @@
+##fileformat=VCFv4.2
+##fileDate=20260225
+##source=PatientWGS_Assignment
+##reference=GRCh38
+##INFO=<ID=GENE,Number=1,Type=String,Description="Gene name">
+##INFO=<ID=CLNSIG,Number=1,Type=String,Description="ClinVar significance">
+#CHROM  POS         ID            REF    ALT       QUAL  FILTER  INFO
+7       117548628   rs113993960   CTT    .         .     PASS    GENE=CFTR;CLNSIG=Pathogenic
+11      5246696     rs334         T      A         .     PASS    GENE=HBB;CLNSIG=Pathogenic
+4       3074877     rs193922916   CAG    CAGexp     .     PASS    GENE=HTT;CLNSIG=Pathogenic

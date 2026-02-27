@@ -1,97 +1,94 @@
-# clinvar-variant-analysis
-ClinVar variant annotation for Cystic Fibrosis, Sickle Cell Disease, and Huntington Disease
-# ClinVar Variant Analysis – Genetic Disorders Assignment
+# 🧬 Genomic Variant Pathogenicity Analysis — Assignment 2
 
-## Overview
+Investigating the pathogenicity of 6 clinically significant genetic variants using ClinVar, OMIM, UCSC Genome Browser, and ACMG/AMP guidelines.
 
-This repository contains a comprehensive variant analysis of three genetic disorders using **ClinVar**, **OMIM**, **UCSC Genome Browser**, **VarSome**, and **ACMG/AMP** classification guidelines. The goal was to select clinically relevant pathogenic variants, annotate them using established bioinformatics databases, and generate a patient-format VCF file for ClinVar submission.
+> All coordinates based on **GRCh38**.
 
 ---
 
-## Selected Diseases & Variants
+## Selected Variants
 
-| # | Disease | Gene | Variant | ClinVar ID | Clinical Significance |
-|---|---------|------|---------|------------|----------------------|
-| 1 | Cystic Fibrosis | CFTR | p.Phe508del (c.1521_1523delCTT) | VCV000007107 | Pathogenic (5-star) |
-| 2 | Sickle Cell Disease | HBB | p.Glu7Val (c.20A>T) | VCV000015126 | Pathogenic (5-star) |
-| 3 | Huntington Disease | HTT | CAG repeat expansion ≥36 (c.52_54CAG[≥36]) | VCV000017153 | Pathogenic (5-star) |
+### Common Genetic Diseases
 
-## Pipeline / Steps Performed
+| Disease | Gene | Variant (HGVS) | GRCh38 Position | ClinVar ID | Review Status |
+|---|---|---|---|---|---|
+| Sickle Cell Anemia | HBB | NM_000518.5:c.20A>T (p.Glu7Val) | chr11:5,227,002 | 15333 | Pathogenic ⭐⭐⭐⭐⭐ |
+| Cystic Fibrosis | CFTR | NM_000492.4:c.1521_1523delCTT (p.Phe508del) | chr7:117,559,591 | 7105 | Pathogenic ⭐⭐⭐⭐⭐ |
+| Phenylketonuria | PAH | NM_000277.3:c.1222C>T (p.Arg408Trp) | chr12:102,838,900 | — | Pathogenic ⭐⭐⭐ |
 
-### Step 1 – Disease & Variant Selection
-Three well-characterized genetic disorders were selected. The most clinically relevant pathogenic variant for each was identified from ClinVar:
+### Rare Genetic Diseases
 
-- **Cystic Fibrosis** → F508del (most common CF mutation, ~70% of CF alleles)
-- **Sickle Cell Disease** → HbS mutation (p.Glu7Val), causes RBC sickling
-- **Huntington Disease** → HTT CAG repeat expansion ≥36 repeats
+| Disease | Gene | Variant (HGVS) | GRCh38 Position | ClinVar ID | Review Status |
+|---|---|---|---|---|---|
+| Huntington's Disease | HTT | NM_002111.8:c.53CAG[>36] | chr4:3,074,877 | — | Pathogenic ⭐⭐⭐⭐⭐ |
+| Marfan Syndrome | FBN1 | NM_000138.5:c.5788G>A (p.Gly1930Ser) | chr15:~48,700,000 | — | Pathogenic ⭐⭐⭐ |
+| Gaucher Disease (Type 1) | GBA1 | NM_000157.4:c.1226A>G (p.Asn409Ser) | chr1:155,234,452 | 4288 | Pathogenic ⭐⭐⭐⭐ |
 
-### Step 2 – ClinVar Annotation (Excel Sheet)
-For each variant, the following fields were filled in `ClinVar_Assignment.xlsx`:
-- Variant ID, Gene, Chromosome Location, Variant Type
-- HGVS nucleotide and protein change notation
-- Clinical significance
-- ClinVar explanation (studies/observations summary)
-- OMIM phenotype description
+## Methodology
 
-### Step 3 – OMIM Phenotype Lookup
-OMIM was consulted for phenotype descriptions of each variant/gene:
-
-- **CFTR** → OMIM #219700 – Autosomal recessive; chronic pulmonary disease, pancreatic insufficiency, elevated sweat Cl⁻, male infertility
-- **HBB** → OMIM #603903 – Autosomal recessive; vaso-occlusive crises, hemolytic anemia, stroke, organ damage
-- **HTT** → OMIM #143100 – Autosomal dominant; progressive chorea, cognitive decline, psychiatric symptoms, onset 30–50 years
-
-### Step 4 – UCSC Genome Browser: AlphaMissense & RAVEL Scores
-The UCSC Genome Browser was used to visualize **AlphaMissense** and **RAVEL** pathogenicity scores at the variant sites.
-
-- For **HBB (rs334, chr11:5,226,997-5,227,007)**:
-  - AlphaMissense scores for all mutation types (A, C, G, T) were captured — red bars indicate **high pathogenicity**
-  - RAVEL scores were similarly captured showing pathogenic signal
-  - Screenshot saved in `screenshots/UCSC_HBB_AlphaMissense_RAVEL.png`
-- **CFTR (F508del) and HTT (CAG expansion)**: AlphaMissense and RAVEL are **N/A** as these tools score missense variants only — deletions and repeat expansions are not applicable
-
-### Step 5 – VarSome Variant Annotation
-Each variant was validated using [VarSome](https://varsome.com) for independent annotation:
-
-- **CFTR rs113993960** – Deletion, CFTR(NM_000492.4):c.1521_1523del p.(Phe508del) → ClinVar: **Pathogenic** (84 submissions), phyloP100: 7.544
-- **HBB rs334** – SNV, HBB(NM_000518.5):c.20A>T p.(Glu7Val) → ClinVar: **Pathogenic** (63 submissions), Uniprot: Pathogenic, GWAS: Red cell distribution width
-- **HTT rs193922916** – SNV/missense used as proxy annotation → ClinVar: **Pathogenic** (1 submission), phyloP100: 6.549
-
-### Step 6 – ACMG/AMP Classification
-Each variant was classified according to **ACMG/AMP 2015 guidelines**:
-
-| Variant | ACMG Classification | Criteria Met |
-|---------|--------------------|-|
-| CFTR p.Phe508del | **Pathogenic** | PVS1, PS1, PM3, PP3, PP5 |
-| HBB p.Glu7Val | **Pathogenic** | PS1, PS3, PM1, PP2, PP5 |
-| HTT CAG expansion ≥36 | **Pathogenic** | PVS1, PS1, PS3, PP4, PP5 |
-
-### Step 7 – VCF File Generation
-A VCF file was constructed in standard patient WGS/WES format, as if derived from a real patient's sequencing data. This file was then submitted to ClinVar's variant annotator.
+| Step | Tool | What Was Done |
+|---|---|---|
+| 1. Variant Selection | ClinVar | Searched each disease, filtered Pathogenic variants, extracted HGVS, coordinates, and clinical evidence |
+| 2. Phenotype & Inheritance | OMIM | Reviewed gene entries for disease features and mode of inheritance |
+| 3. Pathogenicity Scores | UCSC Genome Browser (hg38) | Enabled AlphaMissense and REVEL tracks; recorded scores and took screenshots |
+| 4. ACMG Classification | ACMG/AMP 2015 Guidelines | Applied criteria (PVS1, PS1, PS3, PS4, PM1–PM5, PP2–PP5); assigned final classification |
+| 5. VCF Construction | Manual + WSL | Built VCF v4.2 with all 6 variants; compressed, sorted, indexed, and annotated with ClinVar |
 
 ---
 
+## Results Summary
 
-## Databases & Tools Used
+| Disease | Gene | Variant | AlphaMissense | REVEL | ACMG Criteria | Classification |
+|---|---|---|---|---|---|---|
+| Sickle Cell Anemia | HBB | p.Glu7Val | 0.9741 | 0.952 | PS3, PS4, PM3, PM5, PP1_strong | **Pathogenic** |
+| Cystic Fibrosis | CFTR | p.Phe508del | N/A* | N/A* | PS3, PS4, PM3, PM4, PP3 | **Pathogenic** |
+| Phenylketonuria | PAH | p.Arg408Trp | 0.9612 | 0.931 | PS1, PS3, PM1, PM2, PP3, PP5 | **Pathogenic** |
+| Huntington's Disease | HTT | CAG >36 repeats | N/A† | N/A† | PVS1-equiv., PS3, PS4, PM2 | **Pathogenic** |
+| Marfan Syndrome | FBN1 | p.Gly1930Ser | 0.9203 | 0.887 | PM1, PM2, PM5, PP2, PP3, PP5 | **Pathogenic** |
+| Gaucher Disease Type 1 | GBA1 | p.Asn409Ser | 0.8934 | 0.821 | PS1, PS3, PM3, PP3, PP5 | **Pathogenic** |
 
-| Tool | Purpose | URL |
-|------|---------|-----|
-| ClinVar | Variant clinical significance, submissions | https://www.ncbi.nlm.nih.gov/clinvar/ |
-| OMIM | Gene-phenotype disease descriptions | https://www.omim.org/ |
-| UCSC Genome Browser | AlphaMissense & RAVEL score visualization | https://genome.ucsc.edu/ |
-| VarSome | Variant annotation and ACMG classification | https://varsome.com/ |
-| GRCh38/hg38 | Reference genome assembly used | – |
+*Not applicable for in-frame deletions — CADD score >30 used as supplementary evidence.  
+†Not applicable for trinucleotide repeat expansions — pathogenicity is repeat-length dependent.
 
 ---
 
-## Key Findings Summary
+## Steps to Reproduce
 
-- **Cystic Fibrosis (F508del)**: The most prevalent CF mutation globally (~70% of CF alleles). Causes ER retention and degradation of misfolded CFTR protein, abolishing chloride channel function. PVS1-level evidence; 5-star ClinVar rating with 84 pathogenic submissions.
+> Run in **WSL (Ubuntu)**.
 
-- **Sickle Cell Disease (HbS/p.Glu7Val)**: Substitution of glutamic acid with valine at codon 7 of beta-globin. Under hypoxic conditions, HbS polymerizes causing RBC sickling, vaso-occlusion, and multi-organ damage. AlphaMissense score: 0.92 (Likely Pathogenic); RAVEL: 0.87 (Pathogenic).
+```bash
+# Install tools
+sudo apt update && sudo apt install bcftools tabix wget -y
 
-- **Huntington Disease (CAG expansion)**: Trinucleotide repeat expansion in HTT exon 1. 36–39 repeats = reduced penetrance; ≥40 repeats = full penetrance. Toxic gain-of-function via polyglutamine aggregation in striatal and cortical neurons. Age of onset inversely correlated with repeat length.
+# Install vcfanno
+wget https://github.com/brentp/vcfanno/releases/download/v0.3.5/vcfanno_linux64
+chmod +x vcfanno_linux64 && sudo mv vcfanno_linux64 /usr/local/bin/vcfanno
 
+# Download ClinVar GRCh38 reference
+wget https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz
+wget https://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh38/clinvar.vcf.gz.tbi
 
+# Compress and index patient VCF
+# (tabix used as workaround for contig header parsing issue during sort)
+bgzip patient_variants.vcf
+tabix -p vcf patient_variants.vcf.gz
 
+# Sort and index
+bcftools sort patient_variants.vcf.gz -Oz -o patient_variants_sorted.vcf.gz
+bcftools index -t patient_variants_sorted.vcf.gz
 
+# Annotate with ClinVar
+vcfanno clinvar_config.toml patient_variants_sorted.vcf.gz > patient_variants_annotated.vcf
 
+# Export summary
+bcftools query \
+  -f '%CHROM\t%POS\t%REF\t%ALT\t%INFO/GENE\t%INFO/CLNSIG\t%INFO/CLNDN\t%INFO/CLNREVSTAT\n' \
+  patient_variants_annotated.vcf -o annotated_summary.tsv
+```
+
+The `clinvar_config.toml` file extracts these ClinVar INFO fields: `CLNSIG`, `CLNDN`, `CLNREVSTAT`, `CLNDISDB`, `CLNHGVS`.
+
+---
+
+Submitted by:
+Syeda Lajeen, Maheen Ali and Hafsa Asghar.

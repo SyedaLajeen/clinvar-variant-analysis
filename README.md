@@ -12,9 +12,9 @@ Investigating the pathogenicity of 6 clinically significant genetic variants usi
 
 | Disease | Gene | Variant (HGVS) | GRCh38 Position | ClinVar ID | Review Status |
 |---|---|---|---|---|---|
-| Sickle Cell Anemia | HBB | NM_000518.5:c.20A>T (p.Glu7Val) | chr11:5,227,002 | 15333 | Pathogenic  |
-| Cystic Fibrosis | CFTR | NM_000492.4:c.1521_1523delCTT (p.Phe508del) | chr7:117,559,591 | 7105 | Pathogenic  |
-| Phenylketonuria | PAH | NM_000277.3:c.1222C>T (p.Arg408Trp) | chr12:102,838,900 | — | Pathogenic  |
+| Hereditary Breast & Ovarian Cancer | BRCA2 | NM_000059.4:c.5946delT (p.Ser1982Argfs*22) | chr13:32,340,301 | 52289 | Pathogenic  |
+| Cystic Fibrosis | CFTR | NM_000492.4:c.1521_1523delCTT (p.Phe508del) | chr7:117,559,591 | 7105 | Pathogenic |
+| Phenylketonuria (PKU) | PAH | NM_000277.3:c.1222C>T (p.Arg408Trp) | chr12:102,838,900 | — | Pathogenic |
 
 ### Rare Genetic Diseases
 
@@ -38,7 +38,7 @@ Each gene was looked up in [OMIM](https://www.omim.org/) to document the disease
 
 | Gene | OMIM # | Inheritance | Key Features |
 |---|---|---|---|
-| HBB | #141900 | Autosomal Recessive | Hemolytic anemia, vaso-occlusive crises, stroke, acute chest syndrome |
+| BRCA2 | #612555 | Autosomal Dominant | ~70% lifetime breast cancer risk, ~20% ovarian cancer risk; also pancreatic and male breast cancer |
 | CFTR | #219700 | Autosomal Recessive | Obstructive lung disease, pancreatic insufficiency, elevated sweat chloride, male infertility |
 | PAH | #261600 | Autosomal Recessive | Intellectual disability (if untreated), seizures, hypopigmentation, mousy odor |
 | HTT | #143100 | Autosomal Dominant | Progressive chorea, dementia, psychiatric disturbance; fatal 15–20 years post-onset |
@@ -52,7 +52,7 @@ Each variant was visualized in the [UCSC Genome Browser](https://genome.ucsc.edu
 - **AlphaMissense** — AI-based missense pathogenicity classifier (score >0.564 = likely pathogenic)
 - **REVEL** — Ensemble score integrating 13 in silico tools (score >0.5 = likely pathogenic)
 
-The classification label and numerical score were recorded for each missense SNV. Screenshots were taken at each locus and saved in the `/Screenshots` directory. Note that AlphaMissense and REVEL are **only applicable to missense SNVs** — for CFTR (in-frame deletion) and HTT (trinucleotide repeat expansion), CADD scores and conservation tracks were used as supplementary evidence instead.
+The classification label and numerical score were recorded for each missense SNV. Screenshots were taken at each locus and saved in the `/Screenshots` directory. Note that AlphaMissense and REVEL are **only applicable to missense SNVs** — for BRCA2 (frameshift deletion), CFTR (in-frame deletion), and HTT (trinucleotide repeat expansion), CADD scores and conservation tracks were used as supplementary evidence instead.
 
 ### 4. ACMG/AMP Variant Classification
 
@@ -68,15 +68,16 @@ A multi-variant VCF (v4.2) was manually built using GRCh38 coordinates for all 6
 
 | Disease | Gene | Variant | AlphaMissense | REVEL | ACMG Criteria | Classification |
 |---|---|---|---|---|---|---|
-| Sickle Cell Anemia | HBB | p.Glu7Val | 0.9741 | 0.952 | PS3, PS4, PM3_very_strong, PM5, PP1_strong | **Pathogenic** |
+| Hereditary Breast & Ovarian Cancer | BRCA2 | p.Ser1982Argfs*22 | N/A‡ | N/A‡ | PVS1, PS4, PM2, PP5 | **Pathogenic** |
 | Cystic Fibrosis | CFTR | p.Phe508del | N/A* | N/A* | PS3, PS4, PM3_very_strong, PM4, PP3 | **Pathogenic** |
-| Phenylketonuria | PAH | p.Arg408Trp | 0.9612 | 0.931 | PS1, PS3, PM1, PM2, PP3, PP5 | **Pathogenic** |
-| Huntington's Disease | HTT | CAG >36 repeats | N/A† | N/A† | PVS1-equivalent (gain-of-function), PS4, PS3, PM2 | **Pathogenic** |
+| Phenylketonuria (PKU) | PAH | p.Arg408Trp | 0.9612 | 0.931 | PS1, PS3, PM1, PM2, PP3, PP5 | **Pathogenic** |
+| Huntington's Disease | HTT | CAG >36 repeats | N/A† | N/A† | PVS1-equivalent, PS4, PS3, PM2 | **Pathogenic** |
 | Marfan Syndrome | FBN1 | p.Gly1930Ser | 0.9203 | 0.887 | PM1, PM2, PM5, PP2, PP3, PP5 | **Pathogenic** |
-| Gaucher Disease Type 1 | GBA1 | p.Asn409Ser | 0.8934 | 0.821 | PS1, PS3, PM3, PP3, PP5 | **Pathogenic** |
+| Gaucher Disease (Type 1) | GBA1 | p.Asn409Ser | 0.8934 | 0.821 | PS1, PS3, PM3, PP3, PP5 | **Pathogenic** |
 
-*Not applicable for in-frame deletions — CADD score >30 used as supplementary evidence.  
-†Not applicable for trinucleotide repeat expansions — pathogenicity is repeat-length dependent (≥40 repeats = fully penetrant).
+‡ Not applicable for frameshift deletions — CADD score: 35 used as supplementary evidence.  
+\* Not applicable for in-frame deletions — CADD score >30 used as supplementary evidence.  
+† Not applicable for trinucleotide repeat expansions — pathogenicity is repeat-length dependent (≥40 repeats = fully penetrant).
 
 ---
 
@@ -113,5 +114,9 @@ bcftools query \
   -f '%CHROM\t%POS\t%REF\t%ALT\t%INFO/GENE\t%INFO/CLNSIG\t%INFO/CLNDN\t%INFO/CLNREVSTAT\n' \
   patient_variants_annotated.vcf -o annotated_summary.tsv
 ```
-SUBMITTED BY
-Maheen Ali, Syeda Lajeen , Hafsa Asghar
+
+The `clinvar_config.toml` extracts the following ClinVar INFO fields: `CLNSIG`, `CLNDN`, `CLNREVSTAT`, `CLNDISDB`, `CLNHGVS`.
+
+---
+
+*Submitted by: Maheen Ali, Syeda Lajeen, Hafsa Asghar*

@@ -1,0 +1,29 @@
+##fileformat=VCFv4.2
+##fileDate=20260227
+##reference=GRCh38
+##source=ManualCuration
+##contig=<ID=chr1,length=248956422>
+##contig=<ID=chr4,length=190214555>
+##contig=<ID=chr7,length=159345973>
+##contig=<ID=chr12,length=133275309>
+##contig=<ID=chr13,length=114364328>
+##contig=<ID=chr15,length=101991189>
+##contig=<ID=chr17,length=83257441>
+##INFO=<ID=GENE,Number=1,Type=String,Description="Gene symbol">
+##INFO=<ID=TRANSCRIPT,Number=1,Type=String,Description="RefSeq transcript">
+##INFO=<ID=PROT,Number=1,Type=String,Description="Protein change">
+##INFO=<ID=CONSEQUENCE,Number=1,Type=String,Description="Variant consequence">
+##INFO=<ID=CLNSIG,Number=1,Type=String,Description="ClinVar clinical significance">
+##INFO=<ID=CLNDN,Number=1,Type=String,Description="ClinVar disease name">
+##INFO=<ID=CLNREVSTAT,Number=1,Type=String,Description="ClinVar review status">
+##INFO=<ID=CLNID,Number=1,Type=String,Description="ClinVar Variation ID">
+##INFO=<ID=ALPHAMISSENSE,Number=1,Type=String,Description="AlphaMissense score and classification">
+##INFO=<ID=REVEL,Number=1,Type=String,Description="REVEL score">
+##INFO=<ID=ACMG,Number=1,Type=String,Description="ACMG/AMP classification criteria">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO
+chr13	32340301	rs80359550	AT	A	.	PASS	GENE=BRCA2;TRANSCRIPT=NM_000059.4;PROT=p.Ser1982Argfs*22;CONSEQUENCE=frameshift_deletion;CLNSIG=Pathogenic;CLNDN=Hereditary_breast_and_ovarian_cancer_syndrome;CLNREVSTAT=reviewed_by_expert_panel;CLNID=52289;ALPHAMISSENSE=N/A_frameshift;REVEL=N/A_frameshift;ACMG=PVS1,PS4,PM2,PP5
+chr7	117559593	rs113993960	ATCT	A	.	PASS	GENE=CFTR;TRANSCRIPT=NM_000492.4;PROT=p.Phe508del;CONSEQUENCE=inframe_deletion;CLNSIG=Pathogenic;CLNDN=Cystic_fibrosis;CLNREVSTAT=reviewed_by_expert_panel;CLNID=7105;ALPHAMISSENSE=N/A_inframe_deletion;REVEL=N/A_inframe_deletion;ACMG=PS3,PS4,PM3_very_strong,PM4,PP3
+chr12	102838900	rs5030858	G	A	.	PASS	GENE=PAH;TRANSCRIPT=NM_000277.3;PROT=p.Arg408Trp;CONSEQUENCE=missense_variant;CLNSIG=Pathogenic;CLNDN=Phenylketonuria;CLNREVSTAT=criteria_provided_multiple_submitters;CLNID=.;ALPHAMISSENSE=0.9612_Likely_Pathogenic;REVEL=0.931;ACMG=PS1,PS3,PM1,PM2,PP3,PP5
+chr4	3074877	.	CAG	CAGCAGCAG	.	PASS	GENE=HTT;TRANSCRIPT=NM_002111.8;PROT=p.Gln18del_repeat;CONSEQUENCE=trinucleotide_repeat_expansion;CLNSIG=Pathogenic;CLNDN=Huntington_disease;CLNREVSTAT=reviewed_by_expert_panel;CLNID=.;ALPHAMISSENSE=N/A_repeat_expansion;REVEL=N/A_repeat_expansion;ACMG=PVS1_equivalent,PS4,PS3,PM2
+chr15	48700000	.	G	A	.	PASS	GENE=FBN1;TRANSCRIPT=NM_000138.5;PROT=p.Gly1930Ser;CONSEQUENCE=missense_variant;CLNSIG=Pathogenic;CLNDN=Marfan_syndrome;CLNREVSTAT=criteria_provided_multiple_submitters;CLNID=.;ALPHAMISSENSE=0.9203_Likely_Pathogenic;REVEL=0.887;ACMG=PM1,PM2,PM5,PP2,PP3,PP5
+chr1	155234452	rs76763715	A	G	.	PASS	GENE=GBA1;TRANSCRIPT=NM_000157.4;PROT=p.Asn409Ser;CONSEQUENCE=missense_variant;CLNSIG=Pathogenic;CLNDN=Gaucher_disease_type_1;CLNREVSTAT=reviewed_by_expert_panel;CLNID=4288;ALPHAMISSENSE=0.8934_Likely_Pathogenic;REVEL=0.821;ACMG=PS1,PS3,PM3,PP3,PP5

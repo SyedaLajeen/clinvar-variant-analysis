@@ -1,0 +1,25 @@
+##fileformat=VCFv4.2
+##fileDate=20260225
+##source=ClinVar_Assignment2_WGS_Simulation
+##reference=GRCh38/hg38
+##assembly=GRCh38
+##FILTER=<ID=PASS,Description="All filters passed">
+##INFO=<ID=RS,Number=1,Type=String,Description="dbSNP rsID">
+##INFO=<ID=CLNDN,Number=.,Type=String,Description="ClinVar disease name">
+##INFO=<ID=CLNSIG,Number=.,Type=String,Description="ClinVar clinical significance">
+##INFO=<ID=CLNVC,Number=1,Type=String,Description="Variant type">
+##INFO=<ID=GENEINFO,Number=1,Type=String,Description="Gene symbol:GeneID">
+##INFO=<ID=CLNHGVS,Number=.,Type=String,Description="HGVS nucleotide change">
+##INFO=<ID=OMIM,Number=1,Type=String,Description="OMIM phenotype ID">
+##INFO=<ID=CLNREVSTAT,Number=.,Type=String,Description="ClinVar review status">
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=DP,Number=1,Type=Integer,Description="Read depth">
+##FORMAT=<ID=GQ,Number=1,Type=Integer,Description="Genotype quality">
+##FORMAT=<ID=AD,Number=R,Type=Integer,Description="Allelic depths for ref and alt alleles">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	PATIENT_001
+chr11	5227002	rs334	A	T	99	PASS	RS=rs334;CLNDN=Sickle_cell_disease|Beta-thalassemia;CLNSIG=Pathogenic;CLNVC=single_nucleotide_variant;GENEINFO=HBB:3043;CLNHGVS=NM_000518.5:c.20A>T;OMIM=141900;CLNREVSTAT=reviewed_by_expert_panel	GT:DP:GQ:AD	1/1:45:99:0,45
+chr7	117559593	rs113993960	CTT	C	99	PASS	RS=rs113993960;CLNDN=Cystic_fibrosis|CFTR-related_disorder;CLNSIG=Pathogenic;CLNVC=deletion;GENEINFO=CFTR:1080;CLNHGVS=NM_000492.4:c.1521_1523del;OMIM=219700;CLNREVSTAT=reviewed_by_expert_panel	GT:DP:GQ:AD	0/1:52:99:26,26
+chr12	102838900	rs5030858	C	T	99	PASS	RS=rs5030858;CLNDN=Phenylketonuria|Hyperphenylalaninemia;CLNSIG=Pathogenic;CLNVC=single_nucleotide_variant;GENEINFO=PAH:5053;CLNHGVS=NM_000277.3:c.1222C>T;OMIM=261600;CLNREVSTAT=criteria_provided_multiple_submitters	GT:DP:GQ:AD	0/1:48:99:24,24
+chr4	3074877	.	C	CCAGCAGCAGCAGCAGCAGCAGCAGCAGCAGCAGCAGCAG	99	PASS	CLNDN=Huntington_disease;CLNSIG=Pathogenic;CLNVC=microsatellite;GENEINFO=HTT:3064;CLNHGVS=NM_002111.8:c.53CAG[>36];OMIM=143100;CLNREVSTAT=reviewed_by_expert_panel	GT:DP:GQ:AD	0/1:38:99:19,19
+chr15	48700000	.	G	A	99	PASS	CLNDN=Marfan_syndrome|Ectopia_lentis;CLNSIG=Pathogenic;CLNVC=single_nucleotide_variant;GENEINFO=FBN1:2200;CLNHGVS=NM_000138.5:c.5788G>A;OMIM=154700;CLNREVSTAT=criteria_provided_multiple_submitters	GT:DP:GQ:AD	0/1:55:99:27,28
+chr1	155234452	rs1064651	A	G	99	PASS	RS=rs1064651;CLNDN=Gaucher_disease_type_1|GBA1-related_Parkinson_disease;CLNSIG=Pathogenic;CLNVC=single_nucleotide_variant;GENEINFO=GBA1:2629;CLNHGVS=NM_000157.4:c.1226A>G;OMIM=230800;CLNREVSTAT=reviewed_by_expert_panel	GT:DP:GQ:AD	0/1:60:99:30,30

@@ -20,9 +20,9 @@ Investigating the pathogenicity of 6 clinically significant genetic variants usi
 
 | Disease | Gene | Variant (HGVS) | GRCh38 Position | ClinVar ID | Review Status |
 |---|---|---|---|---|---|
-| Huntington's Disease | HTT | NM_002111.8:c.53CAG[>36] | chr4:3,074,877 | — | Pathogenic ⭐⭐⭐⭐⭐ |
-| Marfan Syndrome | FBN1 | NM_000138.5:c.5788G>A (p.Gly1930Ser) | chr15:~48,700,000 | — | Pathogenic ⭐⭐⭐ |
-| Gaucher Disease (Type 1) | GBA1 | NM_000157.4:c.1226A>G (p.Asn409Ser) | chr1:155,234,452 | 4288 | Pathogenic ⭐⭐⭐⭐ |
+| Huntington's Disease | HTT | NM_002111.8:c.53CAG[>36] | chr4:3,074,877 | — | Pathogenic  |
+| Marfan Syndrome | FBN1 | NM_000138.5:c.5788G>A (p.Gly1930Ser) | chr15:~48,700,000 | — | Pathogenic  |
+| Gaucher Disease (Type 1) | GBA1 | NM_000157.4:c.1226A>G (p.Asn409Ser) | chr1:155,234,452 | 4288 | Pathogenic  |
 
 ---
 
@@ -56,23 +56,7 @@ The classification label and numerical score were recorded for each missense SNV
 
 ### 4. ACMG/AMP Variant Classification
 
-Each variant was classified following the [ACMG/AMP 2015 guidelines](https://www.acmg.net/). Evidence was evaluated across the following criteria:
-
-| Criterion | Strength | Description |
-|---|---|---|
-| PS1 | Strong | Same amino acid change as a known pathogenic variant |
-| PS3 | Strong | Functional studies confirm deleterious effect |
-| PS4 | Strong | Variant significantly enriched in affected vs. control populations |
-| PM1 | Moderate | Located in a critical functional domain or mutational hotspot |
-| PM2 | Moderate | Absent or very rare in gnomAD population database |
-| PM3 | Moderate | Found in trans with another pathogenic variant (recessive diseases) |
-| PM4 | Moderate | In-frame deletion of a functionally critical residue |
-| PM5 | Moderate | Different pathogenic missense change at the same codon is known |
-| PP2 | Supporting | Missense in a gene with low benign missense variant tolerance |
-| PP3 | Supporting | Multiple in silico tools predict damaging effect |
-| PP5 | Supporting | Reputable source (e.g., ClinVar expert panel) classifies as pathogenic |
-
-A final ACMG classification was assigned per variant with written justification recorded in the Excel file.
+Each variant was evaluated using the [ACMG/AMP 2015 guidelines](https://www.acmg.net/) across evidence criteria spanning four strength levels — Very Strong (PVS1), Strong (PS1–PS4), Moderate (PM1–PM5), and Supporting (PP1–PP5). Evidence types considered included functional studies, population frequency (gnomAD), computational predictions, co-segregation, and clinical observations. A final classification was assigned per variant with full justification recorded in the Excel file.
 
 ### 5. VCF File Construction & ClinVar Annotation
 
@@ -84,10 +68,10 @@ A multi-variant VCF (v4.2) was manually built using GRCh38 coordinates for all 6
 
 | Disease | Gene | Variant | AlphaMissense | REVEL | ACMG Criteria | Classification |
 |---|---|---|---|---|---|---|
-| Sickle Cell Anemia | HBB | p.Glu7Val | 0.9741 | 0.952 | PS3, PS4, PM3, PM5, PP1_strong | **Pathogenic** |
-| Cystic Fibrosis | CFTR | p.Phe508del | N/A* | N/A* | PS3, PS4, PM3, PM4, PP3 | **Pathogenic** |
+| Sickle Cell Anemia | HBB | p.Glu7Val | 0.9741 | 0.952 | PS3, PS4, PM3_very_strong, PM5, PP1_strong | **Pathogenic** |
+| Cystic Fibrosis | CFTR | p.Phe508del | N/A* | N/A* | PS3, PS4, PM3_very_strong, PM4, PP3 | **Pathogenic** |
 | Phenylketonuria | PAH | p.Arg408Trp | 0.9612 | 0.931 | PS1, PS3, PM1, PM2, PP3, PP5 | **Pathogenic** |
-| Huntington's Disease | HTT | CAG >36 repeats | N/A† | N/A† | PVS1-equiv., PS3, PS4, PM2 | **Pathogenic** |
+| Huntington's Disease | HTT | CAG >36 repeats | N/A† | N/A† | PVS1-equivalent (gain-of-function), PS4, PS3, PM2 | **Pathogenic** |
 | Marfan Syndrome | FBN1 | p.Gly1930Ser | 0.9203 | 0.887 | PM1, PM2, PM5, PP2, PP3, PP5 | **Pathogenic** |
 | Gaucher Disease Type 1 | GBA1 | p.Asn409Ser | 0.8934 | 0.821 | PS1, PS3, PM3, PP3, PP5 | **Pathogenic** |
 
@@ -129,3 +113,5 @@ bcftools query \
   -f '%CHROM\t%POS\t%REF\t%ALT\t%INFO/GENE\t%INFO/CLNSIG\t%INFO/CLNDN\t%INFO/CLNREVSTAT\n' \
   patient_variants_annotated.vcf -o annotated_summary.tsv
 ```
+SUBMITTED BY
+Maheen Ali, Syeda Lajeen , Hafsa Asghar

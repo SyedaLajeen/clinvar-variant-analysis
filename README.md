@@ -12,9 +12,9 @@ Investigating the pathogenicity of 6 clinically significant genetic variants usi
 
 | Disease | Gene | Variant (HGVS) | GRCh38 Position | ClinVar ID | Review Status |
 |---|---|---|---|---|---|
-| Sickle Cell Anemia | HBB | NM_000518.5:c.20A>T (p.Glu7Val) | chr11:5,227,002 | 15333 | Pathogenic ⭐⭐⭐⭐⭐ |
-| Cystic Fibrosis | CFTR | NM_000492.4:c.1521_1523delCTT (p.Phe508del) | chr7:117,559,591 | 7105 | Pathogenic ⭐⭐⭐⭐⭐ |
-| Phenylketonuria | PAH | NM_000277.3:c.1222C>T (p.Arg408Trp) | chr12:102,838,900 | — | Pathogenic ⭐⭐⭐ |
+| Sickle Cell Anemia | HBB | NM_000518.5:c.20A>T (p.Glu7Val) | chr11:5,227,002 | 15333 | Pathogenic  |
+| Cystic Fibrosis | CFTR | NM_000492.4:c.1521_1523delCTT (p.Phe508del) | chr7:117,559,591 | 7105 | Pathogenic  |
+| Phenylketonuria | PAH | NM_000277.3:c.1222C>T (p.Arg408Trp) | chr12:102,838,900 | — | Pathogenic  |
 
 ### Rare Genetic Diseases
 
@@ -24,15 +24,59 @@ Investigating the pathogenicity of 6 clinically significant genetic variants usi
 | Marfan Syndrome | FBN1 | NM_000138.5:c.5788G>A (p.Gly1930Ser) | chr15:~48,700,000 | — | Pathogenic ⭐⭐⭐ |
 | Gaucher Disease (Type 1) | GBA1 | NM_000157.4:c.1226A>G (p.Asn409Ser) | chr1:155,234,452 | 4288 | Pathogenic ⭐⭐⭐⭐ |
 
+---
+
 ## Methodology
 
-| Step | Tool | What Was Done |
+### 1. Variant Selection — ClinVar
+
+Each disease was searched in [ClinVar](https://www.ncbi.nlm.nih.gov/clinvar/) and filtered for **Pathogenic / Likely Pathogenic** variants with ≥2-star review status and multiple independent submitters. For each variant, the gene name, HGVS nomenclature, GRCh38 coordinates, ClinVar ID, variant type, and associated conditions were extracted. Supporting functional studies and clinical observations were reviewed and summarized in the Excel sheet.
+
+### 2. Phenotype & Inheritance — OMIM
+
+Each gene was looked up in [OMIM](https://www.omim.org/) to document the disease phenotype, major clinical features, and mode of inheritance.
+
+| Gene | OMIM # | Inheritance | Key Features |
+|---|---|---|---|
+| HBB | #141900 | Autosomal Recessive | Hemolytic anemia, vaso-occlusive crises, stroke, acute chest syndrome |
+| CFTR | #219700 | Autosomal Recessive | Obstructive lung disease, pancreatic insufficiency, elevated sweat chloride, male infertility |
+| PAH | #261600 | Autosomal Recessive | Intellectual disability (if untreated), seizures, hypopigmentation, mousy odor |
+| HTT | #143100 | Autosomal Dominant | Progressive chorea, dementia, psychiatric disturbance; fatal 15–20 years post-onset |
+| FBN1 | #154700 | Autosomal Dominant | Aortic root dilation/dissection, ectopia lentis, tall stature, arachnodactyly |
+| GBA1 | #230800 | Autosomal Recessive | Hepatosplenomegaly, pancytopenia, bone marrow infiltration, no CNS involvement (Type 1) |
+
+### 3. Computational Pathogenicity Scores — UCSC Genome Browser
+
+Each variant was visualized in the [UCSC Genome Browser](https://genome.ucsc.edu/) (hg38) with two tracks enabled:
+
+- **AlphaMissense** — AI-based missense pathogenicity classifier (score >0.564 = likely pathogenic)
+- **REVEL** — Ensemble score integrating 13 in silico tools (score >0.5 = likely pathogenic)
+
+The classification label and numerical score were recorded for each missense SNV. Screenshots were taken at each locus and saved in the `/Screenshots` directory. Note that AlphaMissense and REVEL are **only applicable to missense SNVs** — for CFTR (in-frame deletion) and HTT (trinucleotide repeat expansion), CADD scores and conservation tracks were used as supplementary evidence instead.
+
+### 4. ACMG/AMP Variant Classification
+
+Each variant was classified following the [ACMG/AMP 2015 guidelines](https://www.acmg.net/). Evidence was evaluated across the following criteria:
+
+| Criterion | Strength | Description |
 |---|---|---|
-| 1. Variant Selection | ClinVar | Searched each disease, filtered Pathogenic variants, extracted HGVS, coordinates, and clinical evidence |
-| 2. Phenotype & Inheritance | OMIM | Reviewed gene entries for disease features and mode of inheritance |
-| 3. Pathogenicity Scores | UCSC Genome Browser (hg38) | Enabled AlphaMissense and REVEL tracks; recorded scores and took screenshots |
-| 4. ACMG Classification | ACMG/AMP 2015 Guidelines | Applied criteria (PVS1, PS1, PS3, PS4, PM1–PM5, PP2–PP5); assigned final classification |
-| 5. VCF Construction | Manual + WSL | Built VCF v4.2 with all 6 variants; compressed, sorted, indexed, and annotated with ClinVar |
+| PS1 | Strong | Same amino acid change as a known pathogenic variant |
+| PS3 | Strong | Functional studies confirm deleterious effect |
+| PS4 | Strong | Variant significantly enriched in affected vs. control populations |
+| PM1 | Moderate | Located in a critical functional domain or mutational hotspot |
+| PM2 | Moderate | Absent or very rare in gnomAD population database |
+| PM3 | Moderate | Found in trans with another pathogenic variant (recessive diseases) |
+| PM4 | Moderate | In-frame deletion of a functionally critical residue |
+| PM5 | Moderate | Different pathogenic missense change at the same codon is known |
+| PP2 | Supporting | Missense in a gene with low benign missense variant tolerance |
+| PP3 | Supporting | Multiple in silico tools predict damaging effect |
+| PP5 | Supporting | Reputable source (e.g., ClinVar expert panel) classifies as pathogenic |
+
+A final ACMG classification was assigned per variant with written justification recorded in the Excel file.
+
+### 5. VCF File Construction & ClinVar Annotation
+
+A multi-variant VCF (v4.2) was manually built using GRCh38 coordinates for all 6 variants. INFO fields included `GENE`, `PROT`, `CONSEQUENCE`, `CLNSIG`, `CLNDN`, `CLNREVSTAT`, `ALPHAMISSENSE`, `REVEL`, ACMG criteria, and `TRANSCRIPT`. The file was then compressed, sorted, indexed, and annotated against the official NCBI ClinVar GRCh38 VCF using `vcfanno` in WSL (Ubuntu).
 
 ---
 
@@ -48,13 +92,13 @@ Investigating the pathogenicity of 6 clinically significant genetic variants usi
 | Gaucher Disease Type 1 | GBA1 | p.Asn409Ser | 0.8934 | 0.821 | PS1, PS3, PM3, PP3, PP5 | **Pathogenic** |
 
 *Not applicable for in-frame deletions — CADD score >30 used as supplementary evidence.  
-†Not applicable for trinucleotide repeat expansions — pathogenicity is repeat-length dependent.
+†Not applicable for trinucleotide repeat expansions — pathogenicity is repeat-length dependent (≥40 repeats = fully penetrant).
 
 ---
 
 ## Steps to Reproduce
 
-> Run in **WSL (Ubuntu)**.
+> All commands run in **WSL (Ubuntu)**.
 
 ```bash
 # Install tools
@@ -80,15 +124,8 @@ bcftools index -t patient_variants_sorted.vcf.gz
 # Annotate with ClinVar
 vcfanno clinvar_config.toml patient_variants_sorted.vcf.gz > patient_variants_annotated.vcf
 
-# Export summary
+# Export summary as TSV
 bcftools query \
   -f '%CHROM\t%POS\t%REF\t%ALT\t%INFO/GENE\t%INFO/CLNSIG\t%INFO/CLNDN\t%INFO/CLNREVSTAT\n' \
   patient_variants_annotated.vcf -o annotated_summary.tsv
 ```
-
-The `clinvar_config.toml` file extracts these ClinVar INFO fields: `CLNSIG`, `CLNDN`, `CLNREVSTAT`, `CLNDISDB`, `CLNHGVS`.
-
----
-
-Submitted by:
-Syeda Lajeen, Maheen Ali and Hafsa Asghar.

@@ -52,7 +52,7 @@ Each variant was visualized in the [UCSC Genome Browser](https://genome.ucsc.edu
 - **AlphaMissense** — AI-based missense pathogenicity classifier (score >0.564 = likely pathogenic)
 - **REVEL** — Ensemble score integrating 13 in silico tools (score >0.5 = likely pathogenic)
 
-The classification label and numerical score were recorded for each missense SNV. Screenshots were taken at each locus and saved in the `/Screenshots` directory. Note that AlphaMissense and REVEL are **only applicable to missense SNVs** — for BRCA2 (frameshift deletion), CFTR (in-frame deletion), and HTT (trinucleotide repeat expansion), CADD scores and conservation tracks were used as supplementary evidence instead.
+The classification label and numerical score were recorded for each missense SNV. Screenshots were taken at each locus and saved in the `/Screenshots` directory. 
 
 ### 4. ACMG/AMP Variant Classification
 
@@ -75,9 +75,6 @@ A multi-variant VCF (v4.2) was manually built using GRCh38 coordinates for all 6
 | Marfan Syndrome | FBN1 | p.Gly1930Ser | 0.9203 | 0.887 | PM1, PM2, PM5, PP2, PP3, PP5 | **Pathogenic** |
 | Gaucher Disease (Type 1) | GBA1 | p.Asn409Ser | 0.8934 | 0.821 | PS1, PS3, PM3, PP3, PP5 | **Pathogenic** |
 
-‡ Not applicable for frameshift deletions — CADD score: 35 used as supplementary evidence.  
-\* Not applicable for in-frame deletions — CADD score >30 used as supplementary evidence.  
-† Not applicable for trinucleotide repeat expansions — pathogenicity is repeat-length dependent (≥40 repeats = fully penetrant).
 
 ---
 
